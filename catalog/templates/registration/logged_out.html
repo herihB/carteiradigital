@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero is-success is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+          <form class="box" method="post" action="">
+            {% csrf_token %}
+            <p>Desconectado com sucesso!</p>
+            <a href="{% url 'index'%}" style="color: cornflowerblue">Retornar a página principal.</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

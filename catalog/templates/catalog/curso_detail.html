@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+
+        {% if user.is_staff %}
+            <div class="container mt-4">
+                <div class="box">
+                    <h1 class="title is-3">Curso</h1>
+                    <div class="content">
+                        <p><strong>Nome do curso:</strong> {{ curso.nome }}</p>
+                        <p><strong>Data de ínicio:</strong> {{ curso.data_inicio|date:"d/m/Y" }}</p>
+                        <p><strong>Data de término:</strong> {{ curso.data_termino|date:"d/m/Y" }}</p>
+                        <p><strong>Professor:</strong> {{ curso.professor }}</p>
+                    </div>
+                </div>
+                <section class="section">
+                    <div class="column is-4 is-offset-4">
+                    {% else %}
+                        <section class="section">
+                            <div class="column is-4 is-offset-4">
+                                <div class="content is-medium">
+                                    <h2>Você não possuí permissão para acessar esse conteúdo, peça auxíio a um administrador ou entre com uma conta administradora.</h2>
+                                </div>
+                            </div>
+                        </section>
+                    {% endif %}
+                {% else %}
+                    <section class="section">
+                        <div class="column is-4 is-offset-4">
+                            <div class="content is-medium">
+                                <h2>Por favor, realize login para ter acesso a essa página</h2>
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+            </div>
+        </section>
+    {% endblock %}

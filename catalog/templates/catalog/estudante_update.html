@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+{% if perms.catalog.change_bolsista %}
+<section class="section">
+    <div class="column is-4 is-offset-4">
+        <div class="content is-medium">
+            <h1>Editar estudante</h1>
+        </div>
+        <div class="content is-medium">
+           <small><text style="color: indianred">*</text> Indica campo obrigatório</small>
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+
+            <div class="field">
+                <label class="label">Nome: <text style="color: indianred">*</text></label>
+                <div class="control">
+                    {{ form.nome }}
+                    {{ form.nome.errors }}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Email: <text style="color: indianred">*</text></label>
+                <div class="control">
+                    {{ form.email }}
+                    {{ form.email.errors }}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Data de nascimento: <text style="color: indianred">*</text></label>
+                <div class="control">
+                    {{ form.data_nascimento }}
+                    {{ form.data_nascimento.errors }}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Foto:</label>
+                <div class="control">
+                    {{ form.foto }}
+                    {{ form.foto.errors }}
+                </div>
+            </div>
+            <input class="button is-success" type="submit" value="Salvar alterações">
+        </form>
+    </div>
+</section>
+<section class="section">
+    <div class="column is-4 is-offset-4">
+        {% else %}
+        <section class="section">
+            <div class="column is-4 is-offset-4">
+                <div class="content is-medium">
+                    <h2>Você não possuí permissão para acessar esse conteúdo, peça auxíio a um administrador ou entre
+                        com uma
+                        conta
+                        administradora.</h2>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+        {% else %}
+        <section class="section">
+            <div class="column is-4 is-offset-4">
+                <div class="content is-medium">
+                    <h2>Por favor, realize login para ter acesso a essa página</h2>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

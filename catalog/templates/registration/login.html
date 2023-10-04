@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="hero is-warning is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+          <form class="box" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <div class="field">
+              <label class="label" for="">Email</label>
+              <div class="control has-icons-left">
+                <i class="fa fa-envelope"></i>
+                {{ form.username }}
+                {{ form.username.errors }}
+              </div>
+            </div>
+            <div class="field">
+              <label class="label" for="">Senha</label>
+              <div class="control has-icons-left">
+                <i class="fa fa-lock"></i>
+                {{ form.password }}
+              </div>
+            </div>
+            <br />
+            <div class="field">
+              <label class="checkbox">
+                <a href="{% url 'password_reset' %}" style="color: cornflowerblue">Esqueci minha senha</a>
+                {% if form.errors %}
+                <p>Endereço de e-mail e/ou senha incorretos. Por favor tente novamente.</p>
+                {% endif %}
+              </label>
+            </div>
+            <div class="field" style="text-align: center;">
+              <button class="button is-success" type="submit">Entrar</button>
+              <input type="hidden" name="next" value="{{ next }}">
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

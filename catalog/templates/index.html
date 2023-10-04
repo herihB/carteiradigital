@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+        {% if user.is_staff %}
+            Bem vindo a seção de administrador
+        {% else %}
+        <h2>Bem vindo {{ estudante.nome }}</h2>
+        <h2>Abaixo observe seus cursos e notas:</h2>
+        <hr>
+        {% for notas in estudante.get_notas %}
+            <h1>{{ notas.0.curso.nome }}:</h1>
+            {% for nota in notas %}
+                {% for notacurso in nota.0 %}
+                    {{ notacurso.nota }} ({{ notacurso.data_avaliacao|date:"d/m/Y" }})<br/>
+                {% endfor %}
+            {% endfor %}
+            <hr>
+        {% endfor %}
+        {% endif %}
+    {% else %}
+        <p>Bem vindo a sua carteira digital estudantil (CDE)</p>
+        <p>Por favor faça o Login como estudante ou como administrador</p>
+    {% endif %}
+{% endblock %}

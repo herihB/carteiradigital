@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="section">
+  <div class="column is-4 is-offset-4">
+    <div class="content is-medium">
+      <h1>Deletar nota</h1>
+
+      <p>Você está prestes a deletar a nota {{ nota.nota }} do estudante {{ nota.estudantecurso.estudante.nome }} 
+        através da avaliação realizada no dia {{ nota.data_avaliacao|date:"d/m/Y" }}
+
+      <form action="#" method="POST">
+        {% csrf_token %}
+        <input type="submit" class="button is-danger is-medium" value="Confirmar exclusão">
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+<section class="section">
+    <div class="column is-4 is-offset-4">
+        <div class="content is-medium">
+            <h1>Cadastrar nota</h1>
+        </div>
+        <div class="content is-medium">
+           <small><text style="color: indianred">*</text> Indica campo obrigatório</small>
+        </div>
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.media }}
+            <div class="field">
+                <label class="label">Mátricula:</label>
+                <div class="control">
+                        {{ form.estudantecurso }}
+                        {{ form.estudantecurso.errors }}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Nota: <text style="color: indianred">*</text></label>
+                <div class="control">
+                    {{ form.nota }}
+                    {{ form.nota.errors }}
+                </div>
+            </div>
+            
+            <div class="field">
+                <label class="label">Data da avaliação: <text style="color: indianred">*</text></label>
+                <div class="control">
+                    {{ form.data_avaliacao }}
+                    {{ form.data_avaliacao.errors }}
+                </div>
+            </div>
+            <input class="button is-success" type="submit" value="Alterar valores">
+        </form>
+    </div>
+</section>
+<section class="section">
+    <div class="column is-4 is-offset-4">
+        {% else %}
+        <section class="section">
+            <div class="column is-4 is-offset-4">
+                <div class="content is-medium">
+                    <h2>Você não possuí permissão para acessar esse conteúdo, peça auxíio a um administrador ou entre
+                        com uma
+                        conta
+                        administradora.</h2>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

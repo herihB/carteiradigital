@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="section">
+  <div class="column is-4 is-offset-4">
+    <div class="content is-medium">
+      <h1>Deletar curso</h1>
+
+      <p>Você está prestes a deletar o curso: {{ curso.nome }} </p>
+
+      <form action="" method="POST">
+        {% csrf_token %}
+        <input type="submit" class="button is-danger is-medium" value="Confirmar exclusão">
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

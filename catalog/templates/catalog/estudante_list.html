@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+
+        {% if perms.catalog.view_estudante %}
+
+            <section>
+                <div class="columns">
+                    <div class="column"></div>
+                    <div class="is-half is-offset" style="margin-top: 50px;">
+                        <div class="mb-4 px-5 is-flex is-justify-content-space-between is-align-items-center">
+                            <h4 class="title mb-0 is-size-4" data-config-id="header">Estudantes</h4>
+                            <a class="button is-normal is-success bd-pagination-prev" href="{% url 'estudante_form' %}" title="Adicionar novo estudante">
+                                <i class="material-icons">add</i>
+                                Adicionar novo estudante
+                            </a>
+                        </div>
+
+                        {% if estudante_list %}
+
+                            <table class="table" style="width: 500px;">
+                                <thead>
+                                    <tr>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th colspan="2">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    {% for estudante in estudante_list %}
+
+                                        <tr>
+                                            <td>
+                                                <a href="{{ estudante.get_absolute_url }}">{{ estudante.nome }}</a>
+                                            </td>
+                                            <td>{{ estudante.username }}</td>
+                                            <td>
+                                                <p class="control">
+                                                    <form action="{{ estudante.get_absolute_url }}/update">
+                                                        <button style="border:none; outline:none; width: 10px;" class="button is-light is-outlined">
+                                                            <i style="color: #ffc723;" class="material-icons">edit</i>
+                                                        </form>
+                                                    </p>
+                                                </td>
+                                                <td>
+                                                    <p class="control">
+                                                        <form action="{{ estudante.get_absolute_url }}/delete">
+                                                            <button style="border:none; outline:none; width: 10px;" class="button is-danger is-outlined" type="submit">
+                                                                <i class="material-icons">delete</i>
+                                                            </button>
+                                                        </form>
+                                                    </p>
+                                                </td>
+                                            </tr>
+
+                                        {% endfor %}
+
+                                    </tbody>
+                                </table>
+
+                            {% else %}
+
+                                <section class="section">
+                                    <div class="content is-medium">
+                                        <p>Não existem estudantes cadastrados no sistema.</p>
+                                    </div>
+                                </section>
+                            {% endif %}
+
+                        </div>
+                        <div class="column"></div>
+                    </div>
+
+                    {% block pagination %}
+                        {% if is_paginated %}
+
+                            <section>
+                                <div class="columns">
+                                    <div class="column"></div>
+                                    <div class="is-half is-offset" style="margin-top: 50px;">
+                                        <div class="pagination">
+                                            <span class="page-links">
+
+                                                {% if page_obj.has_previous %}
+
+                                                    <a class="button is-small is-link is-light bd-pagination-prev" href="{{ request.path }}?page={{ page_obj.previous_page_number }}" title="Voltar para a página anterior">
+                                                        <i>←</i>
+                                                        <span>
+                                                            <strong>Voltar</strong>
+                                                        </span>
+                                                    </a>
+
+                                                {% endif %}
+
+                                                <span class="page-current">
+                                                    Página
+                                                    {{ page_obj.number }}
+                                                    de
+                                                    {{ page_obj.paginator.num_pages }}.
+                                                </span>
+
+                                                {% if page_obj.has_next %}
+
+                                                    <a class="button is-small is-link is-light bd-pagination-prev" href="{{ request.path }}?page={{ page_obj.next_page_number }}" title="Próxima página">
+                                                        <span>
+                                                            <strong>Próximo</strong>
+                                                        </span>
+                                                        <i>→</i>
+                                                    </a>
+
+                                                {% endif %}
+
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="column"></div>
+                                </div>
+                            </section>
+
+                        {% endif %}
+
+                        <section class="section">
+                            <div class="column is-4 is-offset-4">
+                            {% endblock %}
+
+                        {% else %}
+                            <section class="section">
+                                <div class="column is-4 is-offset-4">
+                                    <div class="content is-medium">
+                                        <h2>Você não possuí permissão para acessar esse conteúdo, peça auxíio a um administrador ou
+                                                          entre com uma
+                                                          conta
+                                                          administradora.</h2>
+                                    </div>
+                                </div>
+                            </section>
+                        {% endif %}
+                    {% else %}
+                        <section class="section">
+                            <div class="column is-4 is-offset-4">
+                                <div class="content is-medium">
+                                    <h2>Por favor, realize login para ter acesso a essa página</h2>
+                                </div>
+                            </div>
+                        </section>
+                    {% endif %}
+                </div>
+            </section>
+        </div>
+
+    </section>
+
+
+{% endblock %}

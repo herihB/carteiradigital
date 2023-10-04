@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {% if user.is_authenticated %}
+
+        {% if user.is_staff %}
+            <div class="container mt-4">
+                <div class="box">
+                    <h1 class="title is-3">Estudante</h1>
+                    <div class="content">
+                        <p><strong>Mátricula:</strong> {{ estudante.id }}</p>
+                        <p><strong>Nome do estudante:</strong> {{ estudante.nome }}</p>
+                        <p><strong>Email:</strong> {{ estudante.username }}</p>
+                        <p><strong>Data de nascimento:</strong> {{ estudante.data_nascimento|date:"d/m/Y" }}</p>
+                    </div>
+                    <a href="{% url 'matricular_estudante' estudante.id %}">
+                        <input class="button is-success" type="submit" value="Matricular em novo curso">
+                    </a>
+                </div>
+                {% if estudante.get_cursos %}
+                    <div class="box">
+                        <h1 class="title is-3">Cursos matriculados:</h1>
+                        <div class="content">
+                            {% for curso in estudante.get_cursos %}
+                                <p>{{ curso.curso.nome }} ({{ curso.curso.data_inicio|date:"d/m/Y" }} - {{ curso.curso.data_termino|date:"d/m/Y" }})</p>
+                                <p><a href="{{estudante.id}}/matricula/{{curso.id}}/notas">
+                                    <input class="button is-warning" type="submit" value="Ver notas">
+                                </a></p>
+                                <p><a href="{{estudante.id}}/matricula/{{curso.id}}/update">
+                                    <input class="button is-success" type="submit" value="Editar">
+                                </a></p>
+                                <p><a href="{{estudante.id}}/matricula/{{curso.id}}/deletar">
+                                    <input class="button is-danger" type="submit" value="Deletar">
+                                </a></p>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+                <section class="section">
+                    <div class="column is-4 is-offset-4">
+                    {% else %}
+                        <section class="section">
+                            <div class="column is-4 is-offset-4">
+                                <div class="content is-medium">
+                                    <h2>Você não possuí permissão para acessar esse conteúdo, peça auxíio a um administrador ou entre com uma conta administradora.</h2>
+                                </div>
+                            </div>
+                        </section>
+                    {% endif %}
+                {% else %}
+                    <section class="section">
+                        <div class="column is-4 is-offset-4">
+                            <div class="content is-medium">
+                                <h2>Por favor, realize login para ter acesso a essa página</h2>
+                            </div>
+                        </div>
+                    </section>
+                {% endif %}
+            </div>
+        </section>
+    {% endblock %}
